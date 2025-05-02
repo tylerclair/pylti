@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pylti"
+version = "0.7.0"  # You may want to update this to the current version
+description = "Python implementation of LTI specification"
+readme = "README.md"  # Change to README.rst if that's the format you use
+requires-python = ">=3.7, <3.14"
+license = {text = "BSD License"}
+authors = [
+    {name = "MIT ODL Engineering"}
+]
+keywords = ["lti", "learning tools interoperability", "education"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Education",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+    "oauth2>=1.9.0.post1",
+    "httplib2>=0.9",
+    "six>=1.10.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest-cov>=2.3.0",
+    "pytest-pep8>=1.0.6",
+    "pytest-flakes>=1.0.1",
+    "pytest>=2.9.2",
+    "httpretty>=0.8.3",
+    "flask>=0.10.1",
+    "oauthlib>=0.6.3",
+    "semantic_version>=2.3.1",
+    "mock==1.0.1"
+]
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.packages.find]
+exclude = ["*.tests", "*.tests.*", "tests.*", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "--cov=pylti --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["pylti"]
+omit = ["tests/*", "setup.py"]
+
+[tool.black]
+line-length = 88
+target-version = ["py37", "py38", "py39", "py310", "py311", "py312", "py313"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203"
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+]
