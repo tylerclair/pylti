@@ -562,6 +562,10 @@ class LTIBase(object):
         """
         log.debug("is_role %s", role)
         roles = self.session['roles'].split(',')
+        app_config = self.lti_kwargs['app'].config
+        config = app_config.get('PYLTI_CONFIG', dict())
+        # Update default LTI_ROLES to include user-provided roles
+        LTI_ROLES.update(config.get('roles', dict()))
         if role in LTI_ROLES:
             role_list = LTI_ROLES[role]
             # find the intersection of the roles
